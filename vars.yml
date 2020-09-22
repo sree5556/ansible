@@ -1,0 +1,9 @@
+- name: Demo on Variables on Play
+  hosts: all
+  vars:
+     url: play.example.com
+  tasks:
+    - name: Print variable
+      debug:
+        msg: url = {{url}}
+        # in ansible it accept the variable in two flower braces {{}}
