@@ -1,5 +1,5 @@
-- name: Demo on Variables on Play
-  hosts: all
+- name: Demo on Variables on Play level
+  hosts: localhost
   vars:
      url: play.example.com
   tasks:
@@ -7,3 +7,18 @@
       debug:
         msg: url = {{url}}
         # in ansible it accept the variable in two flower braces {{}}
+    - name: print variable fron tasks level
+      vars:
+        url: ansible.task.example.com
+      debug:
+        ## vars in tasks it can only work/across the task level
+        msg: url = {{url}}
+        ## task level variables are overwritten  the play level variable
+
+- name: Declare the variables in the file and access them
+  hosts: localhost
+  vars_file:
+    - vars1.yml
+  tasks:
+    - name: Print variable
+

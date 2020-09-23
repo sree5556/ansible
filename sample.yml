@@ -1,0 +1,5 @@
+- name: sample play book
+  hosts: all
+  tasks:
+    - debug:                 # to print the message 
+        msg: Hello World
