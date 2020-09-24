@@ -7,6 +7,7 @@
       debug:
         msg: url = {{url}}
         # in ansible it accept the variable in two flower braces {{}}
+
     - name: print variable fron tasks level
       vars:
         url: ansible.task.example.com
@@ -17,7 +18,7 @@
 
 - name: Declare the variables in the file and access them
   hosts: localhost
-  vars_file:
+  vars_files:
     - vars1.yml
   tasks:
     - name: Print variable
