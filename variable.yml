@@ -18,7 +18,7 @@
 - name: Declare the variables in a file and access them
   hosts: all
   vars_files:
-    - vars01.yml
+    - vars1.yml
   tasks:
     - name: Print Variable
       debug:
