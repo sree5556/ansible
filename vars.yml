@@ -3,9 +3,9 @@
   vars:
      url: play.example.com
   tasks:
-    - name: Print variable
-      debug:
-        msg: url = {{url}}
+     - name: Print variable
+       debug:
+       msg: url = {{url}}
         # in ansible it accept the variable in two flower braces {{}}
 
     - name: print variable fron tasks level
