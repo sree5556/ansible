@@ -10,5 +10,5 @@
     enable: yes
 
 - name: Download the Azure Artefact
-  shell: az artifacts universal download --organization "https://dev.azure.com/sreenivasyandamuri44/" --project "a17776f8-6945-4d00-9e5d-b29646a96364" --scope project --feed "devops-atifacts" --name "frontend" --version "0.0.2" --path .
-  
+  shell: az artifacts universal download --organization "https://dev.azure.com/sreenivasyandamuri44/"
+    --project "a17776f8-6945-4d00-9e5d-b29646a96364" --scope project --feed "devops-atifacts" --name "frontend" --version "0.0.2"--path .

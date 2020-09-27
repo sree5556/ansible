@@ -10,5 +10,5 @@
   tasks:
     - name: Print the fisrtprogram on DataTypes
       debug:
-        msg: Numbers = {{Number}}, Characters = {{Characters}}, Boolean = {{Boolean}}, Boolean1 = {{Boolean1}}, Float = {{Float}}
+        msg: Numbers= {{Number}}, Characters = {{Characters}}, Boolean = {{Boolean}}, Boolean1 = {{Boolean1}}, Float = {{Float}}
 
