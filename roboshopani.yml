@@ -1,0 +1,72 @@
+- name: Roboshop Project Setup with Ansible
+  hosts: all
+  become: yes
+  #serial: 1  # This option is going server by server, Note: This will slow down the run time.
+  ## become also can be given at task level, But it applies only to that task. Giving at play level will be applicable to all the tasks.
+  tasks:
+    - name: Prechecks
+      import_role:
+        name: common
+        tasks_from: prechecks
+      tags:
+        - frontend
+        - catalogue
+        - mongo
+        - user
+        - redis
+        - cart
+        - shipping
+        - payment
+        - rabbitmq
+        - mysql
+
+    #    - name: Import {{component}} role
+    #      import_role:
+    #        name: "{{component}}"
+    #      when: component == "{{COMPONENT}}"
+    #      tags:
+    #        - "{{component}}"
+    #      vars:
+    #        COMPONENT: "{{component}}"
+
+    - name: Import frontend role
+      import_role:
+        name: frontend
+      when: component == "frontend"
+      tags:
+        - frontend
+
+    - name: Import catalogue role
+      import_role:
+        name: catalogue
+      when: component == "catalogue"
+      tags:
+        - catalogue
+
+    - name: Import MongoDB role
+      import_role:
+        name: mongo
+      when: component == "mongo"
+      tags:
+        - mongo
+
+    - name: Import cart role
+      import_role:
+        name: cart
+      when: component == "cart"
+      tags:
+        - cart
+
+    - name: Import user role
+      import_role:
+        name: user
+      when: component == "user"
+      tags:
+        - user
+
+    - name: Import redis role
+      import_role:
+        name: redis
+      when: component == "redis"
+      tags:
+        - redis
