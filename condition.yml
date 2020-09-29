@@ -1,0 +1,11 @@
+- name: demo on conditions with tags
+  hosts: localhost
+  tasks:
+    - name: This is frontend
+      debug:
+        msg: This is frontend
+      when: component == "frontend"
+    - name: This is catalogue
+        debug:
+          msg: This is catalogue
+        when: component == "catalogue"

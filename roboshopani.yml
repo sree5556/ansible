@@ -4,21 +4,23 @@
   #serial: 1  # This option is going server by server, Note: This will slow down the run time.
   ## become also can be given at task level, But it applies only to that task. Giving at play level will be applicable to all the tasks.
   tasks:
-    - name: Prechecks
-      import_role:
-        name: common
-        tasks_from: prechecks
-      tags:
-        - frontend
-        - catalogue
-        - mongo
-        - user
-        - redis
-        - cart
-        - shipping
-        - payment
-        - rabbitmq
-        - mysql
+#    - name: Prechecks
+#      import_role:
+#    #Much like the roles: keyword, this task loads a role,
+#    #but it allows you to control it when the role tasks run in between other tasks of the play.
+#        name: common
+#        tasks_from: prechecks
+#      tags:
+#        - frontend
+#        - catalogue
+#        - mongo
+#        - user
+#        - redis
+#        - cart
+#        - shipping
+#        - payment
+#        - rabbitmq
+#        - mysql
 
     #    - name: Import {{component}} role
     #      import_role:

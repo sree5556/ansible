@@ -1,0 +1,10 @@
+- name: Demo on tags
+  hosts: localhost
+   tasks:
+     - name: This is Frontend
+       debug:
+         msg: This is frontend
+
+     - name: This is catalogue
+       debug:
+         msg: This catalogue
