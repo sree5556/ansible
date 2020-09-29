@@ -4,9 +4,9 @@
      -  name: This is frontend
         debug:
           msg: This is frontend
-         tags: frontend
+        tags: frontend
 
      -  name: This is catalogue
         debug:
           msg: This is Catalogue
-         tags: catalogue
+        tags: catalogue
