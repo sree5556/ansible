@@ -18,7 +18,9 @@
     port: 3306
 
 - name: Check DB Connection
-  community.mysql.mysql_query:
+  community:
+    mysql:
+      mysql_query:
     login_db: mysql
     login_user: root
     login_password: "{{MYSQL_ROOT_PASSWORD}}"
@@ -31,7 +33,7 @@
   register: MYSQL_DEFAULT_PASSWORD
   when: DB_STATUS.failed
 
-- name: COpy rest password scrip
+- name: Copy rest password script
   template:
     src: mysql-root-password-reset.sql
     dest: /tmp/mysql-root-password-reset.sql
