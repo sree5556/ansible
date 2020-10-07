@@ -1,65 +1,65 @@
-- name: Copy MySQL Repo
-  copy:
-    src: mysql.repo
-    dest: /etc/yum.repos.d/mysql.repo
+-  name: Copy MySQL Repo
+   copy:
+     src: mysql.repo
+     dest: /etc/yum.repos.d/mysql.repo
 
-- name: INstall MySQL and Dependencies
-  yum:
-    name: ["mysql-community-server", "python2-PyMySQL"]
-    state: latest
+-  name: INstall MySQL and Dependencies
+   yum:
+     name: ["mysql-community-server", "python2-PyMySQL"]
+     state: latest
 
-- name: Start MySQL
-  systemd:
-    name: mysqld
-    state: started
+-  name: Start MySQL
+   systemd:
+     name: mysqld
+     state: started
 
-#- name: Wait until service starts
-#  wait_for:
-#    port: 3306
+-  name: Wait until service starts
+   wait_for:
+     port: 3306
 
-- name: Check Data Base Connection
-  community.mysql.mysql_query:
-         login_db: mysql
-         login_user: root
-         login_password: "{{MYSQL_ROOT_PASSWORD}}"
-         query: show databases
-  register: DB_STATUS
-  ignore_errors: true
+-  name: Check DB Connection
+   community.mysql.mysql_query:
+     login_db: mysql
+     login_user: root
+     login_password: "{{MYSQL_ROOT_PASSWORD}}"
+     query: show databases
+   register: DB_STATUS
+   ignore_errors: true
 
-- name: Grab default password
-  shell: grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}'
-  register: MYSQL_DEFAULT_PASSWORD
-  when: DB_STATUS.failed
+-  name: Grab default password
+   shell: grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}'
+   register: MYSQL_DEFAULT_PASSWORD
+   when: DB_STATUS.failed
 
-- name: Copy rest password script
-  template:
-    src: mysql-root-password-reset.sql
-    dest: /tmp/mysql-root-password-reset.sql
-  when: DB_STATUS.failed
+-  name: COpy rest password scrip
+   template:
+     src: mysql-root-password-reset.sql
+     dest: /tmp/mysql-root-password-reset.sql
+   when: DB_STATUS.failed
 
-- name: Set root user password
-  shell: mysql --connect-expired-password -uroot -p"{{MYSQL_DEFAULT_PASSWORD.stdout}}" </tmp/mysql-root-password-reset.sql
-  when: DB_STATUS.failed
+-  name: Set root user password
+   shell: mysql --connect-expired-password -uroot -p"{{MYSQL_DEFAULT_PASSWORD.stdout}}" </tmp/mysql-root-password-reset.sql
+   when: DB_STATUS.failed
 
-- name: Include AZ CLI Installation Steps
-  include_role:
-    name: common
-    tasks_from: az-cli-setup.yml
+-  name: Include AZ CLI Installation Steps
+   include_role:
+     name: common
+     tasks_from: az-cli-setup
 
-- name: Create Artifact directory
-  file:
-    path: "{{ARTIFACT_PATH}}"
-    state: directory
+-  name: Create Artifact directory
+   file:
+     path: "{{ARTIFACT_PATH}}"
+     state: directory
 
-- name: Include Artifact Download Steps
-  include_role:
-    name: common
-    tasks_from: artifact-download.yml
+-  name: Include Artifact Download Steps
+   include_role:
+     name: common
+     tasks_from: artifact-download
 
-- name: Load Schema
-  community.mysql.mysql_db:
-    state: import
-    name: all
-    login_user: root
-    login_password: "{{MYSQL_ROOT_PASSWORD}}"
-    target: /tmp/mysql/shipping.sql
+-  name: Load Schema
+   community.mysql.mysql_db:
+     state: import
+     name: all
+     login_user: root
+     login_password: "{{MYSQL_ROOT_PASSWORD}}"
+     target: /tmp/mysql/shipping.sql
