@@ -1,0 +1,38 @@
+-  name: install the nodejs
+   yum:
+     name: [ "nodejs", "make", "gcc-c++" ]
+     state: present
+
+-  name: create the roboshop user app
+   user:
+     name: roboshop
+
+-  name: install cli
+   include_role:
+     name: common
+     tasks_from: az-cli-setup.yml
+
+-  name: create artifact dir
+   file:
+     path: {{"ARTIFACT_PATH"}}
+     state: directory
+
+-  name: artifact-download
+   include_role:
+     name: common
+     tasks_from: artifact-download
+
+-  name: setup cart service
+  template:
+    src: cart.serivce
+    dest: /etc/systemd/system/cart.service
+
+-  name: start the cart service
+   systemd:
+      name: cart
+      state: restarted
+      enable: yes
+      daemon_reload: yes
+
+
+

@@ -1,0 +1,20 @@
+-  name: azurecli repo setup
+   copy:
+     src: azurecli.repo
+     dest: /etc/yum.repos.d
+
+-  name: install the azure cli
+   yum:
+     name:
+         - "azure-cli"
+         - "libicu"
+     state: latest
+
+
+-  name: Install Azure DevOps extension
+   shell: az extension add --name azure-devops
+
+
+-  name: login to azure devops
+   shell: echo {{PAT}} | az devops login --organization https://dev.azure.com/sreenivasyandamuri44/
+   

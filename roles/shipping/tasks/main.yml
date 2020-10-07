@@ -1,0 +1,35 @@
+- name: Install NodeJS
+  yum:
+    name: [ "nodejs", "make", "gcc-c++" ]
+    state: present
+
+-  name: create a roboshop user app
+   user:
+     name: roboshop
+
+-  name: install az-cli-setup
+   include_role:
+      name: common
+      tasks_from: az-cli-setup.yml
+
+-  name: create artifact directory
+   file:
+     path: "{{ARTIFACT_PATH}}"
+     state: directory
+
+-  name: download artifact
+   include_role:
+       name: common
+       tasks_from: artifact-download.yml
+
+-  name: shipping service chdir
+   template:
+     src: shipping.service
+     dest: /etc/systemd/system/shipping.service
+
+-  name: start shipping service
+   systemd:
+     name: shipping
+     state: restarted
+     enable: yes
+     daemon-reload: yes

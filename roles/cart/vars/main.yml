@@ -1,0 +1,5 @@
+COMPONENT: "cart"
+ARTIFACT_PATH: /home/roboshop/{{COMPONENT}}
+REDIS_ENDPOINT: redis.helodevops.tech
+MONGO_ENDPOINT: mongod.helodevops.tech
+CATALOGUE_ENDPOINT: catalogue.helodevops.tech

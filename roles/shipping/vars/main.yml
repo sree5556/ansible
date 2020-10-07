@@ -1,0 +1,4 @@
+COMPONENT: "shipping"
+ARTIFACT_PATH: /home/roboshop/{{COMPONENT}}
+CART_ENDPOINT: cart.helodevops.tech:8000
+DB_HOST: mysql.helodevops.tech

@@ -44,7 +44,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "user"
             }
           ]
         }
@@ -87,7 +87,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "user"
             }
           ]
         }
@@ -130,7 +130,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "user"
             }
           ]
         }
@@ -173,7 +173,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "user"
             }
           ]
         }
@@ -216,7 +216,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "user"
             }
           ]
         }
@@ -259,7 +259,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "user"
             }
           ]
         }
@@ -273,7 +273,7 @@
       "Tags": [
         {
           "Key": "Name",
-          "Value": "mongod"
+          "Value": "user"
         }
       ]
     }

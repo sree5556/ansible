@@ -1,0 +1,19 @@
+#PAT
+#set-hostname
+#disable-auto-shoutdown
+-  name:  check a PAT variable
+   when:  PAT is undefined
+   fail:
+     msg: PAT is needeed
+
+# component is available or not
+-  name: check component variable is available
+   when: component is undefined
+   fail:
+     msg: component variable is needed
+
+-  name:   set the default name
+   shell:  set-hostname {{component}}
+
+-  name: disable auto shutdown
+   shell: disable-auto-shutdown

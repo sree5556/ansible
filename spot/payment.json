@@ -44,7 +44,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "payment"
             }
           ]
         }
@@ -87,7 +87,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "payment"
             }
           ]
         }
@@ -130,7 +130,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "payment"
             }
           ]
         }
@@ -173,7 +173,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "payment"
             }
           ]
         }
@@ -216,7 +216,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "payment"
             }
           ]
         }
@@ -259,7 +259,7 @@
           "Tags": [
             {
               "Key": "Name",
-              "Value": "mongod"
+              "Value": "payment"
             }
           ]
         }
@@ -273,7 +273,7 @@
       "Tags": [
         {
           "Key": "Name",
-          "Value": "mongod"
+          "Value": "payment"
         }
       ]
     }

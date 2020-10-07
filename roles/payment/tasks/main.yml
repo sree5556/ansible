@@ -1,0 +1,47 @@
+-  name: Install Python 3
+   yum:
+     name: ["python36", "gcc", "python3-devel"]
+     state: present
+
+-  name: add roboshop user app
+   user:
+      name: roboshop
+
+-  name: install az-cli-setup
+   include_role:
+         name: common
+         tasks_from: az-cli-setup.yml
+
+-  name: download artifact directory
+   file:
+      path: "{{ARTIFACT_PATH}}"
+      state: directory
+
+-  name: cd artifact download
+   include_role:
+     name: common
+     tasks_from: artifact-download.yml
+
+-  name: Install specified python requirements offline from a local directory with downloaded packages
+   pip:
+      requirements: "{{ARTIFACT_PATH}}/requirements.txt"
+      executable: pip3
+
+-  name: template chdir
+   template:
+      src: payment.service
+      dest: /etc/systemd/system/payment.service
+
+-  name: start the service
+   systemd:
+         name: payment
+        start: restarted
+       enable: yes
+      daemon-reload: yes
+
+
+
+
+
+
+

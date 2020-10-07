@@ -1,0 +1,30 @@
+-  name: setup nodejs
+   yum:
+     name: [ "nodejs","make", "gcc-c++" ]
+     state: present
+
+-  name: add roboshop user
+   user:
+     name: roboshop
+
+-  name: az-cli-setup
+   include_role:
+        name: common
+        tasks_from: az-cli-setup.yml
+
+-  name: artifact ddownload directory
+   file:
+     path: "{{ARTIFACT_PATH}}"
+     state: directory
+
+-  name: user service chdir
+   template:
+     src: user.service
+     dest: /etc/systemd/system/user.service
+
+-  name: start the service
+   systemd:
+     name: user
+     start: restarted
+     enable: yes
+     daemon-reload: yes

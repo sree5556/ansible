@@ -1,0 +1,3 @@
+COMPONENT: "catalogue"
+ARTIFACT_PATH: /home/roboshop/{{COMPONENT}}
+MONGO_ENDPOINT: mongod.helodevops.tech

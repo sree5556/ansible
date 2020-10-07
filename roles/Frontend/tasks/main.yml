@@ -1,0 +1,54 @@
+-  name: Install nginx
+   yum:
+     name: nginx
+     state: latest
+
+-  name: az-cli-setup
+   include_role:
+        name: common
+        tasks_from: az-cli-setup.yml
+
+#-  name: Download the Azure Artefact
+#   shell: az artifacts universal download --organization "https://dev.azure.com/sreenivasyandamuri44/" --project "a17776f8-6945-4d00-9e5d-b29646a96364" --scope project --feed "devops-atifacts" --name "frontend" --version "0.0.2" --path .
+
+#-  name: Insatll azure cli repo
+#   shell: sudo sh -c 'echo -e "[azure-cli]
+#          name=Azure CLI
+#          baseurl=https://packages.microsoft.com/yumrepos/azure-cli
+#          enabled=yes
+#          gpgcheck=yes
+#          gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/mongod.repo'
+
+#-  name: Download file htdoc
+#   get_url:
+#     url: https://dev.azure.com/DevOps-Batches/ce99914a-0f7d-4c46-9ccc-e4d025115ea9/_apis/git/repositories/db389ddc-b576-4fd9-be14-b373d943d6ee/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=truefile:///tmp/afile.txt
+#     dest: /tmp/frontend.zip
+
+-  name: remove old htdoc
+   file:
+     path: "{{ARTIFACT_PATH}}"
+     state: absent
+
+-  name: download the htdoc
+   file:
+     path: "{{ARTIFACT_PATH}}"
+     state: directory
+
+# created the directory to store
+-  name: download the artifact
+   include_role:
+        name: common
+        tasks_from: artifact-download.yml
+
+
+-  name: update nginx configuration
+   template:
+     src: nginx.conf
+     dest: /etc/nginx/nginx.conf
+   notify: Restart nginx
+
+-  name: start the nginx service
+   systemd:
+     name: nginx
+     state: started
+     enable: yes

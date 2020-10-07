@@ -1,0 +1,9 @@
+COMPONENT: "frontend"
+ARTIFACT_PATH: /usr/share/nginx/html
+#ARTIFACT_PATH: /home/roboshop/{{COMPONENT}}
+#MONGO_ENDPOINT: mongod.helodevops.tech
+CATALOGUE_HOST: catalogue.helodevops.tech
+USER_HOST: user.helodevops.tech
+CART_HOST: cart.helodevops.tech
+SHIPPING_HOST: shipping.helodevops.tech
+PAYMENT_HOST: payment.helodevops.tech

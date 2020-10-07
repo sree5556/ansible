@@ -1,0 +1,5 @@
+-  name: restart the mongod service
+   systemd:
+      state: restarted
+      enable: yes
+      deamon_reload: yes

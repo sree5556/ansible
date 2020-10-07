@@ -1,0 +1,2 @@
+COMPONENT: "mongod"
+ARTIFACT_PATH: /tmp/{{COMPONENT}}
