@@ -45,10 +45,10 @@
 
     - name: Import MongoDB role
       import_role:
-        name: mongod
-      when: component == "mongod"
+        name: mongo
+      when: component == "mongo"
       tags:
-        - mongod
+        - mongo
 
     - name: Import cart role
       import_role:

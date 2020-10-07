@@ -1,68 +1,116 @@
-#-  name: create the mongod repos
-#   yum_repositary:
-#      mongodb-org-4.2 ]
-#      name=MongoDB Repository
-#      baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
-#      gpgcheck=1
-#      enabled=1
-#      gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc' >/etc/yum.repos.d/mongodb.repo
-#-  name: create the epel
-- name: Add repository
+##-  name: create the mongod repos
+##   yum_repositary:
+##      mongodb-org-4.2 ]
+##      name=MongoDB Repository
+##      baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
+##      gpgcheck=1
+##      enabled=1
+##      gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc' >/etc/yum.repos.d/mongodb.repo
+##-  name: create the epel
+#- name: Add repository
+#  yum_repository:
+#       name: mongodb-org-4.2
+#       description: MongoDB Repository
+#       baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
+#       gpgcheck: yes
+#       enabled: yes
+#       gpgkey: https://www.mongodb.org/static/pgp/server-4.2.asc
+#
+#-  name: insatll mongod and service
+#   yum:
+#     name: mongodb-org
+#     state: latest
+#
+#-  name: Update Liste IP address from 127.0.0.1 to 0.0.0.0 in config file
+#   replace:
+#     path: /etc/mongod.conf
+#     regexp: '127.0.0.1'
+#     replace: '0.0.0.0'
+#
+#-  name: start the service
+#   systemd:
+#      name: mongod
+#      state: started
+#      enable: yes
+#
+##-  name: download the az artifact
+##   shell: az artifacts universal download --organization "https://dev.azure.com/sreenivasyandamuri44/" --project "a17776f8-6945-4d00-9e5d-b29646a96364" --scope project --feed "devops-atifacts" --name "mongod" --version "0.0.2" --path .
+##
+##-  name: install the az-cli login
+##
+#-  name: az-cli-setup
+#   include_role:
+#     name: common
+#     tasks_from: az-cli-setup.yml
+#
+#-  name: download artifact path
+#   file:
+#     path: "{{ARTIFACT_PATH}}"
+#     state: directory
+#
+#-  name: artifact-download
+#   include_role:
+#     name: common
+#     tasks_from: artifact-download.yml
+#
+#-  name: download the scheme and load both catalogue and user.js
+#   shell: mongod < {{ item }}
+#   args:
+#     chdir: "{{ARTIFACT_PATH}}"/
+#   loop:
+#          - catalogue.js
+#          - users.js
+#
+##-  name:
+##   template:
+##        src:
+##        dest:
+##   notify:
+- name: Create MongoDB repo
   yum_repository:
-       name: mongodb-org-4.2
-       description: MongoDB Repository
-       baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
-       gpgcheck: yes
-       enabled: yes
-       gpgkey: https://www.mongodb.org/static/pgp/server-4.2.asc
+    name: mongodb-org-4.2
+    description: MongoDB Repository
+    baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
+    gpgcheck: yes
+    enabled: yes
+    gpgkey: https://www.mongodb.org/static/pgp/server-4.2.asc
 
--  name: insatll mongod and service
-   yum:
-     name: mongodb-org
-     state: latest
+- name: Install MongoDB
+  yum:
+    name: mongodb-org
+    state: latest
 
--  name: Update Liste IP address from 127.0.0.1 to 0.0.0.0 in config file
-   replace:
-     path: /etc/mongod.conf
-     regexp: '127.0.0.1'
-     replace: '0.0.0.0'
+- name: Replace Listen Address for Mongo
+  replace:
+    path: /etc/mongod.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
 
--  name: start the service
-   systemd:
-      name: mongod
-      state: started
-      enable: yes
+- name: Start MongoDB
+  systemd:
+    name: mongod
+    state: started
+    enabled: yes
 
-#-  name: download the az artifact
-#   shell: az artifacts universal download --organization "https://dev.azure.com/sreenivasyandamuri44/" --project "a17776f8-6945-4d00-9e5d-b29646a96364" --scope project --feed "devops-atifacts" --name "mongod" --version "0.0.2" --path .
-#
-#-  name: install the az-cli login
-#
--  name: az-cli-setup
-   include_role:
-     name: common
-     tasks_from: az-cli-setup.yml
+- name: Include AZ CLI Installation Steps
+  include_role:
+    name: common
+    tasks_from: az-cli-setup
 
--  name: download artifact path
-   file:
-     path: "{{ARTIFACT_PATH}}"
-     state: directory
+- name: Create Artifact directory
+  file:
+    path: "{{ARTIFACT_PATH}}"
+    state: directory
 
--  name: artifact-download
-   include_role:
-     name: common
-     tasks_from: artifact-download.yml
+- name: Include Artifact Download Steps
+  include_role:
+    name: common
+    tasks_from: artifact-download
 
--  name: download the scheme and load both catalogue and user.js
-   shell: mongod < {{ item }}
-   args:
-     chdir: "{{ARTIFACT_PATH}}"/
-   loop:
-          - catalogue.js
-          - users.js
-
-#-  name:
-#   template:
-#        src:
-#        dest:
-#   notify:
+- name: Load MongoDB Schema
+  shell: mongo < {{ item }}
+  args:
+    chdir: "{{ARTIFACT_PATH}}"
+  loop:
+    - catalogue.js
+    - users.js

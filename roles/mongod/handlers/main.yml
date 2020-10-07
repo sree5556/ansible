@@ -1,4 +1,4 @@
--  name: restart the mongod service
+-  name: restart the mongo service
    systemd:
       state: restarted
       enable: yes

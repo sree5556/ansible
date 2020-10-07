@@ -1,0 +1,20 @@
+- name: Install NodeJS
+  yum:
+    name: [ "nodejs", "make", "gcc-c++" ]
+    state: present
+
+- name: Add RoboShop App User
+  user:
+    name: roboshop
+
+- name: Include AZ CLI Installation Steps
+  include_tasks: az-cli-setup.yml
+
+- name: Create Artifact directory
+  file:
+    path: "{{ARTIFACT_PATH}}"
+    state: directory
+
+- name: Include Artifact Download Steps
+  include_tasks: artifact-download.yml
+

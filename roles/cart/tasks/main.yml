@@ -1,38 +1,72 @@
--  name: install the nodejs
-   yum:
-     name: [ "nodejs", "make", "gcc-c++" ]
-     state: present
+#-  name: install the nodejs
+#   yum:
+#     name: [ "nodejs", "make", "gcc-c++" ]
+#     state: present
+#
+#-  name: create the roboshop user app
+#   user:
+#     name: roboshop
+#
+#-  name: install cli
+#   include_role:
+#     name: common
+#     tasks_from: az-cli-setup.yml
+#
+#-  name: create artifact dir
+#   file:
+#     path: {{"ARTIFACT_PATH"}}
+#     state: directory
+#
+#-  name: artifact-download
+#   include_role:
+#     name: common
+#     tasks_from: artifact-download
+#
+#-  name: setup cart service
+#  template:
+#    src: cart.serivce
+#    dest: /etc/systemd/system/cart.service
+#
+#-  name: start the cart service
+#   systemd:
+#      name: cart
+#      state: restarted
+#      enable: yes
+#      daemon_reload: yes
+#
+#
+#
+- name: Include Steps for NodeJS
+  include_role:
+    name: common
+    tasks_from: nodejs
 
--  name: create the roboshop user app
-   user:
-     name: roboshop
+#- name: Include Steps for Rsyslog
+#  include_role:
+#    name: common
+#    tasks_from: rsyslog
 
--  name: install cli
-   include_role:
-     name: common
-     tasks_from: az-cli-setup.yml
-
--  name: create artifact dir
-   file:
-     path: {{"ARTIFACT_PATH"}}
-     state: directory
-
--  name: artifact-download
-   include_role:
-     name: common
-     tasks_from: artifact-download
-
--  name: setup cart service
+- name: Setup Cart Service
   template:
-    src: cart.serivce
+    src: cart.service
     dest: /etc/systemd/system/cart.service
 
--  name: start the cart service
-   systemd:
-      name: cart
-      state: restarted
-      enable: yes
-      daemon_reload: yes
+- name: Start Cart Service
+  systemd:
+    name: cart
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
 
-
-
+#- name: Include Prometheus Role
+#  include_role:
+#    name: prometheus
+#
+#- name: Include Filebeat Role
+#  include_role:
+#    name: filebeat
+#  vars:
+#    LOG_FILE: /var/log/cart.log
+#    EXCLUDE_LINES: nodejs
+#    IS_STRUCTURED: true
+#
