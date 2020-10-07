@@ -20,81 +20,72 @@
          - rabbitmq
          - mysql
 
-    #    - name: Import {{component}} role
-    #      import_role:
-    #        name: "{{component}}"
-    #      when: component == "{{COMPONENT}}"
-    #      tags:
-    #        - "{{component}}"
-    #      vars:
-    #        COMPONENT: "{{component}}"
-
-    -  name: Import frontend role
-       import_role:
+-  name: Import frontend role
+   import_role:
          name: frontend
-       when: component == "frontend"
-       tags:
-         - frontend
+   when: component == "frontend"
+   tags:
+      - frontend
 
-    -  name: Import catalogue role
-       import_role:
+-  name: Import catalogue role
+   import_role:
          name: catalogue
-       when: component == "catalogue"
-       tags:
-         - catalogue
+   when: component == "catalogue"
+   tags:
+      - catalogue
 
-    -  name: Import MongoDB role
-       import_role:
+-  name: Import MongoDB role
+   import_role:
          name: mongod
-       when: component == "mongod"
-       tags:
-         - mongo
+   when: component == "mongod"
+   tags:
+      - mongo
 
-    -  name: Import cart role
-       import_role:
+-  name: Import cart role
+   import_role:
          name: cart
-       when: component == "cart"
-       tags:
-         - cart
+   when: component == "cart"
+   tags:
+      - cart
 
-    -  name: Import user role
-       import_role:
+-  name: Import user role
+   import_role:
          name: user
-       when: component == "user"
-       tags:
-         - user
+   when: component == "user"
+   tags:
+      - user
 
-    -  name: Import redis role
-       import_role:
+-  name: Import redis role
+   import_role:
          name: redis
-       when: component == "redis"
-       tags:
-         - redis
+   when: component == "redis"
+   tags:
+      - redis
 
-    -  name: Import mysql role
-       import_role:
+-  name: Import mysql role
+   import_role:
          name: mysql
-       when: component == "mysql"
-       tags:
-         - mysql
+   when: component == "mysql"
+   tags:
+      - mysql
 
-    -  name: Import shipping role
-       import_role:
+-  name: Import shipping role
+   import_role:
          name: shipping
-       when: component == "shipping"
-       tags:
-         - shipping
+   when: component == "shipping"
+   tags:
+      - shipping
 
-    -  name: Import rabbitmq role
-       import_role:
+-  name: Import rabbitmq role
+   import_role:
          name: rabbitmq
-       when: component == "rabbitmq"
-       tags:
-         - rabbitmq
+   when: component == "rabbitmq"
+   tags:
+      - rabbitmq
 
-    -  name: Import payment role
-       import_role:
+-  name: Import payment role
+   import_role:
          name: payment
-       when: component == "payment"
-       tags:
-         - payment
+   when: component == "payment"
+   tags:
+      - payment
