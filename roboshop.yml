@@ -1,91 +1,100 @@
--  name: Roboshop Project Setup with Ansible
-   hosts: all
-   become: yes
+- name: Roboshop Project Setup with Ansible
+  hosts: all
+  become: yes
   #serial: 1  # This option is going server by server, Note: This will slow down the run time.
   ## become also can be given at task level, But it applies only to that task. Giving at play level will be applicable to all the tasks.
-   tasks:
-     - name: Prechecks
-       import_role:
-          name: common
-          tasks_from: prechecks
-       tags:
-         - frontend
-         - catalogue
-         - mongo
-         - user
-         - redis
-         - cart
-         - shipping
-         - payment
-         - rabbitmq
-         - mysql
+  tasks:
+    - name: Prechecks
+      import_role:
+        name: common
+        tasks_from: prechecks
+      tags:
+        - frontend
+        - catalogue
+        - mongo
+        - user
+        - redis
+        - cart
+        - shipping
+        - payment
+        - rabbitmq
+        - mysql
 
--  name: Import frontend role
-   import_role:
-         name: frontend
-   when: component == "frontend"
-   tags:
-      - frontend
+    #    - name: Import {{component}} role
+    #      import_role:
+    #        name: "{{component}}"
+    #      when: component == "{{COMPONENT}}"
+    #      tags:
+    #        - "{{component}}"
+    #      vars:
+    #        COMPONENT: "{{component}}"
 
--  name: Import catalogue role
-   import_role:
-         name: catalogue
-   when: component == "catalogue"
-   tags:
-      - catalogue
+    - name: Import frontend role
+      import_role:
+        name: frontend
+      when: component == "frontend"
+      tags:
+        - frontend
 
--  name: Import MongoDB role
-   import_role:
-         name: mongod
-   when: component == "mongod"
-   tags:
-      - mongo
+    - name: Import catalogue role
+      import_role:
+        name: catalogue
+      when: component == "catalogue"
+      tags:
+        - catalogue
 
--  name: Import cart role
-   import_role:
-         name: cart
-   when: component == "cart"
-   tags:
-      - cart
+    - name: Import MongoDB role
+      import_role:
+        name: mongod
+      when: component == "mongod"
+      tags:
+        - mongod
 
--  name: Import user role
-   import_role:
-         name: user
-   when: component == "user"
-   tags:
-      - user
+    - name: Import cart role
+      import_role:
+        name: cart
+      when: component == "cart"
+      tags:
+        - cart
 
--  name: Import redis role
-   import_role:
-         name: redis
-   when: component == "redis"
-   tags:
-      - redis
+    - name: Import user role
+      import_role:
+        name: user
+      when: component == "user"
+      tags:
+        - user
 
--  name: Import mysql role
-   import_role:
-         name: mysql
-   when: component == "mysql"
-   tags:
-      - mysql
+    - name: Import redis role
+      import_role:
+        name: redis
+      when: component == "redis"
+      tags:
+        - redis
 
--  name: Import shipping role
-   import_role:
-         name: shipping
-   when: component == "shipping"
-   tags:
-      - shipping
+    - name: Import mysql role
+      import_role:
+        name: mysql
+      when: component == "mysql"
+      tags:
+        - mysql
 
--  name: Import rabbitmq role
-   import_role:
-         name: rabbitmq
-   when: component == "rabbitmq"
-   tags:
-      - rabbitmq
+    - name: Import shipping role
+      import_role:
+        name: shipping
+      when: component == "shipping"
+      tags:
+        - shipping
 
--  name: Import payment role
-   import_role:
-         name: payment
-   when: component == "payment"
-   tags:
-      - payment
+    - name: Import rabbitmq role
+      import_role:
+        name: rabbitmq
+      when: component == "rabbitmq"
+      tags:
+        - rabbitmq
+
+    - name: Import payment role
+      import_role:
+        name: payment
+      when: component == "payment"
+      tags:
+        - payment
