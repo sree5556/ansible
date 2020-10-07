@@ -6,19 +6,19 @@
    tasks:
      - name: Prechecks
        import_role:
-         name: common
-         tasks_from: prechecks
-      tags:
-        - frontend
-        - catalogue
-        - mongo
-        - user
-        - redis
-        - cart
-        - shipping
-        - payment
-        - rabbitmq
-        - mysql
+          name: common
+          tasks_from: prechecks
+       tags:
+         - frontend
+         - catalogue
+         - mongo
+         - user
+         - redis
+         - cart
+         - shipping
+         - payment
+         - rabbitmq
+         - mysql
 
     #    - name: Import {{component}} role
     #      import_role:
