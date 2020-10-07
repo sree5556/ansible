@@ -13,18 +13,16 @@
     name: mysqld
     state: started
 
-- name: Wait until service starts
-  wait_for:
-    port: 3306
+#- name: Wait until service starts
+#  wait_for:
+#    port: 3306
 
-- name: Check DB Connection
-  community:
-    mysql:
-      mysql_query:
-    login_db: mysql
-    login_user: root
-    login_password: "{{MYSQL_ROOT_PASSWORD}}"
-    query: show databases
+- name: Check Data Base Connection
+  community.mysql.mysql_query:
+         login_db: mysql
+         login_user: root
+         login_password: "{{MYSQL_ROOT_PASSWORD}}"
+         query: show databases
   register: DB_STATUS
   ignore_errors: true
 
