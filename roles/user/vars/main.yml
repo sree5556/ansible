@@ -1,4 +1,4 @@
 COMPONENT: "user"
 ARTIFACT_PATH: /home/roboshop/{{COMPONENT}}
 REDIS_ENDPOINT: redis.helodevops.tech
-MONGO_ENDPOINT: mongod.helodevops.tech
+MONGO_ENDPOINT: mongo.helodevops.tech
