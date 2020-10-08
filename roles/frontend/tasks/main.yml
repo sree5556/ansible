@@ -86,7 +86,7 @@
 - name: Start Nginx Service
   systemd:
     name: nginx
-    state: started
+    state: restarted
     enabled: yes
 
 #- name: Include Prometheus Role
