@@ -82,10 +82,10 @@
 #      daemon_reload: yes
 #
 #
-#- name: Include Steps for NodeJS
-#  include_role:
-#    name: common
-#    tasks_from: nodejs
+- name: Include Steps for NodeJS
+  include_role:
+    name: common
+    tasks_from: nodejs
 
 #- name: Include Steps for Rsyslog
 #  include_role:
