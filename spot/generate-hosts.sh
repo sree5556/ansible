@@ -6,10 +6,10 @@
 #  COMPONENT=$(echo $i | sed -e 's/.json//')
 #  IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text)
 #  echo $IP component=$COMPONENT >>/tmp/hosts
-#  sed -e "s/IPADDRESS/${IP}/" -e "s/DNS_NAME/${COMPONENT}/" record.json >/tmp/record.json
-#  aws route53 change-resource-record.json-sets --hosted-zone-id Z000052511SHFQ7DL9WLG --change-batch file:///tmp/record.json
+#  sed -e "s/IPADDRESS/${IP}/" -e "s/DNS_NAME/${COMPONENT}/" record >/tmp/record
+#  aws route53 change-resource-record-sets --hosted-zone-id Z000052511SHFQ7DL9WLG --change-batch file:///tmp/record
 #done
-#Invalid choice: 'change-resource-record.json-sets', maybe you meant:
+#Invalid choice: 'change-resource-record-sets', maybe you meant:
 #aws route53 change-resource-record-sets --hosted-zone-id <ZoneId> --change-batch '{\"Changes\": [{\"Action\": \"UPSERT\",\"ResourceRecordSet\": {\"Name\": \"dev.mydns.com\",\"Type\": \"CNAME\",\"TTL\": 300,\"ResourceRecords\": [{\"Value\": \"s-########1.server.transfer.us-east-1.amazonaws.com.\"}]}}]}'
 #
 #{
@@ -37,7 +37,7 @@ for i in *.json ; do
     continue
   fi
   echo $IP component=$COMPONENT >>/tmp/hosts
-#  sed -e "s/IPADDRESS/${IP}/" -e "s/DNS_NAME/${COMPONENT}/" record >/tmp/record.json
-#  aws route53 change-resource-record-sets --hosted-zone-id Z000052511SHFQ7DL9WLG --change-batch file:///tmp/record.json
+#  sed -e "s/IPADDRESS/${IP}/" -e "s/DNS_NAME/${COMPONENT}/" record >/tmp/record
+#  aws route53 change-resource-record-sets --hosted-zone-id Z000052511SHFQ7DL9WLG --change-batch file:///tmp/record
 done
 
