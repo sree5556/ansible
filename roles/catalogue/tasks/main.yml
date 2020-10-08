@@ -1,96 +1,130 @@
-#-  name: catalogue service
-#   debug:
-#     msg: download the catalogue services
-#
-#-  name: install the dependencies
-#   yum:
-#     name: [ "nodejs", "make", "gcc-c++" ]
-#     state: present
-#
-##-  name: execute the curl command
-##   get_url:
-##     url: https://dev.azure.com/DevOps-Batches/ce99914a-0f7d-4c46-9ccc-e4d025115ea9/_apis/git/repositories/558568c8-174a-4076-af6c-51bf129e93bb/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=true
-##     dest: /tmp/catalogue.zip
-#
-##-  name: adding the user roboshop
+##-  name: catalogue service
+##   debug:
+##     msg: download the catalogue services
+##
+##-  name: install the dependencies
+##   yum:
+##     name: [ "nodejs", "make", "gcc-c++" ]
+##     state: present
+##
+###-  name: execute the curl command
+###   get_url:
+###     url: https://dev.azure.com/DevOps-Batches/ce99914a-0f7d-4c46-9ccc-e4d025115ea9/_apis/git/repositories/558568c8-174a-4076-af6c-51bf129e93bb/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=true
+###     dest: /tmp/catalogue.zip
+##
+###-  name: adding the user roboshop
+###   user:
+###     name: roboshop
+###   shell: useradd roboshop
+###          cd /home/roboshop
+###          mkdir catalogue
+###          cd catalogue
+###          tar -xf /tmp/catalogue.zip
+##
+###-  name: install the atifact login cli repos
+###   shell:  "[azure-cli]
+###           name=Azure CLI
+###           baseurl=https://packages.microsoft.com/yumrepos/azure-cli
+###           enabled=1
+###           gpgcheck=1
+###           gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/mongod.repo
+##
+###-  name: download the artifact
+###  az artifacts universal download --organization "https://dev.azure.com/sreenivasyandamuri44/" --project "a17776f8-6945-4d00-9e5d-b29646a96364" --scope project --feed "devops-atifacts" --name "catalogue" --version "0.0.2" --path .
+##
+###-  name: ansible template
+###   template:
+###     src:  /home/roboshop/catalogue/catalogue.service
+###     dest: /etc/systemd/system/catalogue.service
+###
+###- name: to change the ip add in catalogue.service
+###  replace:
+###    path: /etc/systemd/system/catalogue.service
+###
+##
+##
+###-  name: copy the service file from to another destination
+###   copy:
+###     src: /home/roboshop/catalogue/catalogue.service
+###     dest: /etc/systemd/system/catalogue.service
+##
+##-  name: add user roboshop
 ##   user:
 ##     name: roboshop
-##   shell: useradd roboshop
-##          cd /home/roboshop
-##          mkdir catalogue
-##          cd catalogue
-##          tar -xf /tmp/catalogue.zip
-#
-##-  name: install the atifact login cli repos
-##   shell:  "[azure-cli]
-##           name=Azure CLI
-##           baseurl=https://packages.microsoft.com/yumrepos/azure-cli
-##           enabled=1
-##           gpgcheck=1
-##           gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/mongod.repo
-#
-##-  name: download the artifact
-##  az artifacts universal download --organization "https://dev.azure.com/sreenivasyandamuri44/" --project "a17776f8-6945-4d00-9e5d-b29646a96364" --scope project --feed "devops-atifacts" --name "catalogue" --version "0.0.2" --path .
-#
-##-  name: ansible template
+##
+##-  name: az-cli-setup
+##   include_role:
+##      name: common
+##      tasks_from: az-cli-setup.yml
+##
+##-  name: artifact path to create directory
+##   file:
+##     path: "{{ARTIFACT_PATH}}"
+##     state: directory
+##
+##
+##-  name: az-download
+##   include_role:
+##           name: common
+##     tasks_from: artfact-download.yml
+##
+##
+##-  name: upadate mongod ip add
 ##   template:
-##     src:  /home/roboshop/catalogue/catalogue.service
-##     dest: /etc/systemd/system/catalogue.service
+##         src: catalogue.service
+##        dest: /etc/systemd/system/catalogue.service
 ##
-##- name: to change the ip add in catalogue.service
-##  replace:
-##    path: /etc/systemd/system/catalogue.service
+##-  name:  start the systemctl services
+##   systemd:
+##        name: catalogue
+##       state: restarted
+##      enable: yes
+##      daemon_reload: yes
 ##
+##
+#- name: Include Steps for NodeJS
+#  include_role:
+#    name: common
+#    tasks_from: nodejs
 #
+##- name: Include Steps for Rsyslog
+##  include_role:
+##    name: common
+##    tasks_from: rsyslog
 #
-##-  name: copy the service file from to another destination
-##   copy:
-##     src: /home/roboshop/catalogue/catalogue.service
-##     dest: /etc/systemd/system/catalogue.service
+#- name: Setup Catalogue Service
+#  template:
+#    src: catalogue.service
+#    dest: /etc/systemd/system/catalogue.service
 #
-#-  name: add user roboshop
-#   user:
-#     name: roboshop
+#- name: Start Catalogue Service
+#  systemd:
+#    name: catalogue
+#    state: restarted
+#    enabled: yes
+#    daemon_reload: yes
 #
-#-  name: az-cli-setup
-#   include_role:
-#      name: common
-#      tasks_from: az-cli-setup.yml
-#
-#-  name: artifact path to create directory
-#   file:
-#     path: "{{ARTIFACT_PATH}}"
-#     state: directory
-#
-#
-#-  name: az-download
-#   include_role:
-#           name: common
-#     tasks_from: artfact-download.yml
-#
-#
-#-  name: upadate mongod ip add
-#   template:
-#         src: catalogue.service
-#        dest: /etc/systemd/system/catalogue.service
-#
-#-  name:  start the systemctl services
-#   systemd:
-#        name: catalogue
-#       state: restarted
-#      enable: yes
-#      daemon_reload: yes
-#
-#
+##- name: Include Prometheus Role
+##  include_role:
+##    name: prometheus
+##
+##- name: Include Filebeat Role
+##  include_role:
+##    name: filebeat
+##  vars:
+##    LOG_FILE: /var/log/catalogue.log
+##    EXCLUDE_LINES: nodejs
+
+
 - name: Include Steps for NodeJS
   include_role:
     name: common
     tasks_from: nodejs
 
-#- name: Include Steps for Rsyslog
-#  include_role:
-#    name: common
-#    tasks_from: rsyslog
+- name: Include Steps for Rsyslog
+  include_role:
+    name: common
+    tasks_from: rsyslog
 
 - name: Setup Catalogue Service
   template:
@@ -104,13 +138,15 @@
     enabled: yes
     daemon_reload: yes
 
-#- name: Include Prometheus Role
-#  include_role:
-#    name: prometheus
-#
-#- name: Include Filebeat Role
-#  include_role:
-#    name: filebeat
-#  vars:
-#    LOG_FILE: /var/log/catalogue.log
-#    EXCLUDE_LINES: nodejs
+- name: Include Prometheus Role
+  include_role:
+    name: prometheus
+
+- name: Include Filebeat Role
+  include_role:
+    name: filebeat
+  vars:
+    LOG_FILE: /var/log/catalogue.log
+    EXCLUDE_LINES: nodejs
+    IS_STRUCTURED: true
+    APPNAME: catalogue

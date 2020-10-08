@@ -89,7 +89,7 @@
 - name: Start MongoDB
   systemd:
     name: mongod
-    state: restarted
+    state: started
     enabled: yes
 
 - name: Include AZ CLI Installation Steps
