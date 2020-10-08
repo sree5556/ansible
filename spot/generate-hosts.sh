@@ -10,6 +10,19 @@
 #  aws route53 change-resource-record.json-sets --hosted-zone-id Z000052511SHFQ7DL9WLG --change-batch file:///tmp/record.json
 #done
 #Invalid choice: 'change-resource-record.json-sets', maybe you meant:
+#aws route53 change-resource-record-sets --hosted-zone-id <ZoneId> --change-batch '{\"Changes\": [{\"Action\": \"UPSERT\",\"ResourceRecordSet\": {\"Name\": \"dev.mydns.com\",\"Type\": \"CNAME\",\"TTL\": 300,\"ResourceRecords\": [{\"Value\": \"s-########1.server.transfer.us-east-1.amazonaws.com.\"}]}}]}'
+
+{
+  "Comment": "DNS Record",
+  "Changes": [{
+    "Action": "CREATE",
+    "ResourceRecordSet": {
+      "Name": "DNS_NAME.helodevops.tech",
+      "Type": "A",
+      "TTL": 300,
+      "ResourceRecords": [{ "Value": "IPADDRESS"}]
+    }}]
+}
 
 
 
