@@ -87,10 +87,10 @@
 #    name: common
 #    tasks_from: nodejs
 
-- name: Include Steps for Rsyslog
-  include_role:
-    name: common
-    tasks_from: rsyslog
+#- name: Include Steps for Rsyslog
+#  include_role:
+#    name: common
+#    tasks_from: rsyslog
 
 - name: Setup Catalogue Service
   template:
