@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 #rm -f /tmp/hosts
 #
@@ -26,7 +26,7 @@
 
 
 
-#!/bin/bash
+
 
 rm -f /tmp/hosts
 
@@ -37,7 +37,6 @@ for i in *.json ; do
     continue
   fi
   echo $IP component=$COMPONENT >>/tmp/hosts
-#  sed -e "s/IPADDRESS/${IP}/" -e "s/DNS_NAME/${COMPONENT}/" record >/tmp/record
-#  aws route53 change-resource-record-sets --hosted-zone-id Z000052511SHFQ7DL9WLG --change-batch file:///tmp/record
+  sed -e "s/IPADDRESS/${IP}/" -e "s/DNS_NAME/${COMPONENT}/" record >/tmp/record.json
+  aws route53 change-resource-record-sets --hosted-zone-id Z020952727UTZSZU8899Q --change-batch file:///tmp/record.json
 done
-

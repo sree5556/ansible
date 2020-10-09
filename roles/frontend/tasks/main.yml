@@ -17,7 +17,7 @@
 ##          baseurl=https://packages.microsoft.com/yumrepos/azure-cli
 ##          enabled=yes
 ##          gpgcheck=yes
-##          gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/mongod.repo'
+##          gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/mongo.repo'
 #
 ##-  name: Download file htdoc
 ##   get_url:
