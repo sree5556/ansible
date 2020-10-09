@@ -1,7 +1,7 @@
 {
   "Comment": "DNS Record",
   "Changes": [{
-    "Action": "CREATE",
+    "Action": "UPSERT",
     "ResourceRecordSet": {
       "Name": "DNS_NAME.helodevops.tech",
       "Type": "A",
