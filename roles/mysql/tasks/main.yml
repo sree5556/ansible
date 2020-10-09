@@ -5,7 +5,7 @@
 
 -  name: INstall MySQL and Dependencies
    yum:
-     name: ["mysql-community-server", "python2-PyMySQL"]
+     name: [ "python2-PyMySQL","mysql-community-server" ]
      state: latest
 
 -  name: Start MySQL
