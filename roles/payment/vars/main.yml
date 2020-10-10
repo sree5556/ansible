@@ -3,5 +3,5 @@ ARTIFACT_PATH: /home/roboshop/{{COMPONENT}}
 CART_HOST: cart.helodevops.tech
 USER_HOST: user.helodevops.tech
 AMQP_HOST: rabbitmq.helodevops.tech
-MQP_USER: roboshop
+AMQP_USER: roboshop
 AMQP_PASS: roboshop123
