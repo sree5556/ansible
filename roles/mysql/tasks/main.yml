@@ -1,7 +1,7 @@
 -  name: Copy MySQL Repo
    copy:
-     src: mysql.repos
-     dest: /etc/yum.repos.d/mysql.repos
+     src: mysql.repo
+     dest: /etc/yum.repos.d/mysql.repo
 
 -  name: INstall MySQL and Dependencies
    yum:
