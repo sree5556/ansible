@@ -5,11 +5,11 @@ Description=Payment Service
 User=root
 WorkingDirectory=/home/roboshop/payment
 
-Environment=CART_HOST=CARTHOST
-Environment=USER_HOST=USERHOST
-Environment=AMQP_HOST=AMQPHOST
-Environment=AMQP_USER=roboshop
-Environment=AMQP_PASS=roboshop123
+Environment=CART_HOST={{CART_HOST}}
+Environment=USER_HOST={{USER_HOST}}
+Environment=AMQP_HOST={{AMQP_HOST}}
+Environment=AMQP_USER={{AMQP_USER}}
+Environment=AMQP_PASS={{AMQP_PASS}}
 
 ExecStart=/usr/local/bin/uwsgi --ini payment.ini
 SyslogIdentifier=payment
